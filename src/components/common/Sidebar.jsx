@@ -46,15 +46,13 @@ const Sidebar = ({user}) => {
                                     <div className="ring-primary ring-offset-base-100 w-16 rounded-full ring ring-offset-2">
                                         <Link to={'/'} ><img src={user.avatar}  alt="User Avatar" /></Link>
                                     </div>
-                                    <p className=" ml-3 text-sm font-semibold  items-center ">{user.name}</p>
+                                    <p className=" ml-3 text-sm font-semibold  items-center "></p>
                         </motion.span>
                     )}
                 </AnimatePresence>
                 <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
                     onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                    className='p-2 ml-2  rounded-full hover:bg-primary-content transition-colors max-w-fit'
+                    className='p-2 ml-2  rounded-full hover:bg-primary-content/50 cursor-pointer  transition-colors max-w-fit'
                 >
                     <Menu size={24} />
                 </motion.button>
@@ -63,7 +61,7 @@ const Sidebar = ({user}) => {
                 <nav className='mt-8 flex-grow'>
                     {SIDEBAR_ITEMS.map((item) => (
                         <Link key={item.href} to={item.href}>
-                            <motion.div className='flex items-center p-4 text-sm font-medium rounded-lg hover:bg-primary-content  transition-colors mb-2'>
+                            <motion.div className='flex items-center p-4 text-sm font-medium rounded-lg hover:bg-primary-content/50  transition-colors mb-2'>
                                 <item.icon size={20} style={{ color: item.color, minWidth: "20px" }} />
                                 <AnimatePresence>
                                     {isSidebarOpen && (
@@ -84,7 +82,7 @@ const Sidebar = ({user}) => {
                      {/* Logout Button */}
                      <button
                         onClick={handleLogout}
-                        className="flex items-center p-4 text-sm font-medium rounded-lg hover:bg-primary-content
+                        className="flex items-center p-4 text-sm font-medium rounded-lg hover:bg-primary-content/50 
                         transition-colors mb-2 w-full cursor-pointer"
                     >
                         <LogOut size={20} style={{ color: "#EF4444", minWidth: "20px" }} />

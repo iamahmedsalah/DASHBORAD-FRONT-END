@@ -41,11 +41,16 @@ const ProductsTable = ({ products, setProducts }) => {
     const handleEdit = (product) => {
         setEditingProduct(product); // Set the product to be edited
         setIsEditing(true); // Open the edit modal
-        
+
     };
 
     // Handle save product
     const handleSave = () => {
+        if (!editingProduct.name || !editingProduct.category || !editingProduct.price) {
+
+            toast.error("Please fill in all fields");
+            return;
+        }
 
         const updatedProducts = products.map((product) =>
             product.id === editingProduct.id ? editingProduct : product
@@ -168,7 +173,7 @@ const ProductsTable = ({ products, setProducts }) => {
             <AnimatePresence>
                 {isEditing && (
                     <motion.div
-                        className='fixed inset-0 backdrop-blur-xs  bg-opacity-50 flex items-center justify-center z-50'
+                        className='fixed inset-0 backdrop-blur-xs bg-opacity-50 flex items-center justify-center z-50'
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
@@ -182,66 +187,118 @@ const ProductsTable = ({ products, setProducts }) => {
                             transition={{ duration: 0.3 }}
                         >
                             <h2 className='text-xl font-semibold mb-4'>Edit Product</h2>
-                            <div className='mb-4'>
-                                <label className='block text-sm font-medium mb-1'>Name</label>
-                                <input
-                                    type='text'
-                                    className='w-full border rounded-lg px-3 py-2 input validator'
-                                    value={editingProduct.name}
-                                    pattern="[A-Za-z][A-Za-z0-9\s]*" minLength="3" maxLength="30" title="Only letters,numbers,space "
-                                    onChange={(e) =>
-                                        setEditingProduct({ ...editingProduct, name: e.target.value })
-                                    }
-                                />
-                                <p className="validator-hint">
-                                    Must be 3 to 30 characters
-                                    containing only letters,numbers
-                                </p>
-                            </div>
-                            <div className='mb-4'>
-                                <label className='block text-sm font-medium mb-1'>Category</label>
-                                <input
-                                    type='text'
-                                    className='w-full border rounded-lg px-3 py-2 input validator'
-                                    value={editingProduct.category}
-                                    pattern="[A-Za-z][A-Za-z0-9\s]*" minLength="3" maxLength="30" title="Only letters,numbers,space "
-                                    onChange={(e) =>
-                                        setEditingProduct({ ...editingProduct, category: e.target.value })
-                                    }
-                                />
-                                <p className="validator-hint">
-                                    Must be 3 to 30 characters
-                                    containing only letters,numbers
-                                </p>
-                            </div>
-                            <div className='mb-4'>
-                                <label className='block text-sm font-medium mb-1'>Price</label>
-                                <input
-                                    type='number'
-                                    className='w-full border rounded-lg px-3 py-2'
-                                    value={editingProduct.price}
-                                    pattern="[\S\s]+[\S]+"
-                                    title="Only numbers"
-                                    maxLength="100000"
-                                    onChange={(e) =>
-                                        setEditingProduct({ ...editingProduct, price: e.target.value })
-                                    }
-                                />
-                            </div>
-                            <div className='flex justify-end'>
-                                <button
-                                    className='px-4 py-2 bg-base-300 rounded-lg mr-2 cursor-pointer'
-                                    onClick={() => setIsEditing(false)}
-                                >
-                                    Cancel
-                                </button>
-                                <button
-                                    className='px-4 py-2 bg-primary text-white rounded-lg cursor-pointer'
-                                    onClick={handleSave}
-                                >
-                                    Save
-                                </button>
-                            </div>
+                            <form
+                                onSubmit={(e) => {
+                                    e.preventDefault();
+                                    handleSave();
+                                }}
+                            >
+                                {/* Name Field */}
+                                <div className='mb-4'>
+                                    <label className='block text-sm font-medium mb-1'>Name</label>
+                                    <input
+                                        type='text'
+                                        className={`w-full border rounded-lg px-3 py-2 input validator ${!editingProduct.name ? "border-red-500" : ""
+                                            }`}
+                                        value={editingProduct.name}
+                                        pattern="[A-Za-z][A-Za-z0-9\s]*"
+                                        minLength="3"
+                                        maxLength="30"
+                                        title="Name must be 3 to 30 characters long and contain only letters, numbers, and spaces."
+                                        required
+                                        onInvalid={(e) =>
+                                            e.target.setCustomValidity(
+                                                "Name must be 3 to 30 characters long and contain only letters, numbers, and spaces."
+                                            )
+                                        }
+                                        onInput={(e) => e.target.setCustomValidity("")}
+                                        onChange={(e) =>
+                                            setEditingProduct({ ...editingProduct, name: e.target.value })
+                                        }
+                                    />
+                                    {!editingProduct.name && (
+                                        <p className="text-red-500 text-sm mt-1">
+                                            Name is required and must be 3 to 30 characters long.
+                                        </p>
+                                    )}
+                                </div>
+
+                                {/* Category Field */}
+                                <div className='mb-4'>
+                                    <label className='block text-sm font-medium mb-1'>Category</label>
+                                    <input
+                                        type='text'
+                                        className={`w-full border rounded-lg px-3 py-2 input validator ${!editingProduct.category ? "border-red-500" : ""
+                                            }`}
+                                        value={editingProduct.category}
+                                        pattern="[A-Za-z][A-Za-z0-9\s]*"
+                                        minLength="3"
+                                        maxLength="30"
+                                        title="Category must be 3 to 30 characters long and contain letters, numbers, and spaces."
+                                        required
+                                        onInvalid={(e) =>
+                                            e.target.setCustomValidity(
+                                                "Category must be 3 to 30 characters long and contain letters, numbers, and spaces."
+                                            )
+                                        }
+                                        onInput={(e) => e.target.setCustomValidity("")}
+                                        onChange={(e) =>
+                                            setEditingProduct({ ...editingProduct, category: e.target.value })
+                                        }
+                                    />
+                                    {!editingProduct.category && (
+                                        <p className="text-red-500 text-sm mt-1">
+                                            Category is required and must be 3 to 30 characters long.
+                                        </p>
+                                    )}
+                                </div>
+
+                                {/* Price Field */}
+                                <div className='mb-4'>
+                                    <label className='block text-sm font-medium mb-1'>Price</label>
+                                    <input
+                                        type='float'
+                                        className={`w-full border rounded-lg px-3 py-2 input validator ${!editingProduct.price ? "border-red-500" : ""
+                                            }`}
+                                        value={editingProduct.price}
+                                        min="1"
+                                        max="100000"
+                                        title="Price must be a number between 1 and 100,000."
+                                        required
+                                        onInvalid={(e) =>
+                                            e.target.setCustomValidity(
+                                                "Price must be a number between 1 and 100,000."
+                                            )
+                                        }
+                                        onInput={(e) => e.target.setCustomValidity("")}
+                                        onChange={(e) =>
+                                            setEditingProduct({ ...editingProduct, price: e.target.value })
+                                        }
+                                    />
+                                    {!editingProduct.price && (
+                                        <p className="text-red-500 text-sm mt-1">
+                                            Price is required and must be a number between 1 and 100,000.
+                                        </p>
+                                    )}
+                                </div>
+
+                                {/* Action Buttons */}
+                                <div className='flex justify-end'>
+                                    <button
+                                        type="button"
+                                        className='px-4 py-2 bg-base-300 rounded-lg mr-2 cursor-pointer'
+                                        onClick={() => setIsEditing(false)}
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        type="submit"
+                                        className='px-4 py-2 bg-primary text-white rounded-lg cursor-pointer'
+                                    >
+                                        Save
+                                    </button>
+                                </div>
+                            </form>
                         </motion.div>
                     </motion.div>
                 )}

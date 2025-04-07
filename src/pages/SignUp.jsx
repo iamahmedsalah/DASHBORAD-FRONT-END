@@ -82,7 +82,7 @@ const SignUp = () => {
                             />
                             <p className="validator-hint">
                                 Must be 3 to 30 characters
-                                containing only letters,numbers
+                                containing letters & numbers
                             </p>
                         </div>
                         <div>

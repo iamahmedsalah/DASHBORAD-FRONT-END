@@ -214,51 +214,88 @@ const UsersTable = ({ users, setUsers }) => {
                             transition={{ duration: 0.3 }}
                         >
                             <h2 className="text-xl font-semibold mb-4">Edit User</h2>
-                            <div className="mb-4">
-                                <label className="block text-sm font-medium mb-1">Name</label>
-                                <input
-                                    type="text"
-                                    className="w-full border rounded-lg px-3 py-2 input validator"
-                                    value={editingUser.name}
-                                    pattern="[A-Za-z][A-Za-z0-9\s]*" minLength="3" maxLength="30" title="Only letters,numbers,space "
-                                    onChange={(e) =>
-                                        setEditingUser({ ...editingUser, name: e.target.value })
-                                    }
-                                />
-                                <p className="validator-hint">
-                                    Must be 3 to 30 characters
-                                    containing only letters,numbers
-                                </p>
-                            </div>
-                            <div className="mb-4">
-                                <label className="block text-sm font-medium mb-1">Email</label>
-                                <input
-                                    type="email"
-                                    className="w-full border rounded-lg px-3 py-2 input validator"
-                                    value={editingUser.email}
-                                    pattern="^[^@]+@[^@]+\.[^@]+$"
-                                    maxLength="50"
-                                    title="Please enter a valid email address"
-                                    onChange={(e) =>
-                                        setEditingUser({ ...editingUser, email: e.target.value })
-                                    }
-                                />
-                                <p className="validator-hint">Enter valid email address</p>
-                            </div>
-                            <div className="flex justify-end">
-                                <button
-                                    className="px-4 py-2 bg-base-300 rounded-lg mr-2 cursor-pointer"
-                                    onClick={() => setIsEditing(false)}
-                                >
-                                    Cancel
-                                </button>
-                                <button
-                                    className="px-4 py-2 bg-primary text-white rounded-lg cursor-pointer"
-                                    onClick={handleSave}
-                                >
-                                    Save
-                                </button>
-                            </div>
+                            <form
+                                onSubmit={(e) => {
+                                    e.preventDefault();
+                                    handleSave();
+                                }}
+                            >
+                                {/* Name Field */}
+                                <div className="mb-4">
+                                    <label className="block text-sm font-medium mb-1">Name</label>
+                                    <input
+                                        type="text"
+                                        className={`w-full border rounded-lg px-3 py-2 input validator ${!editingUser.name ? "border-red-500" : ""
+                                            }`}
+                                        value={editingUser.name}
+                                        pattern="[A-Za-z][A-Za-z0-9\s]*"
+                                        minLength="3"
+                                        maxLength="30"
+                                        title="Name must be 3 to 30 characters long and contain only letters, numbers, and spaces."
+                                        required
+                                        onInvalid={(e) =>
+                                            e.target.setCustomValidity(
+                                                "Name must be 3 to 30 characters long and contain only letters, numbers, and spaces."
+                                            )
+                                        }
+                                        onInput={(e) => e.target.setCustomValidity("")}
+                                        onChange={(e) =>
+                                            setEditingUser({ ...editingUser, name: e.target.value })
+                                        }
+                                    />
+                                    {!editingUser.name && (
+                                        <p className="text-red-500 text-sm mt-1">
+                                            Name is required and must be 3 to 30 characters long.
+                                        </p>
+                                    )}
+                                </div>
+
+                                {/* Email Field */}
+                                <div className="mb-4">
+                                    <label className="block text-sm font-medium mb-1">Email</label>
+                                    <input
+                                        type="email"
+                                        className={`w-full border rounded-lg px-3 py-2 input validator ${!editingUser.email ? "border-red-500" : ""
+                                            }`}
+                                        value={editingUser.email}
+                                        pattern="^[^@]+@[^@]+\.[^@]+$"
+                                        maxLength="50"
+                                        title="Please enter a valid email address."
+                                        required
+                                        onInvalid={(e) =>
+                                            e.target.setCustomValidity(
+                                                "Please enter a valid email address."
+                                            )
+                                        }
+                                        onInput={(e) => e.target.setCustomValidity("")}
+                                        onChange={(e) =>
+                                            setEditingUser({ ...editingUser, email: e.target.value })
+                                        }
+                                    />
+                                    {!editingUser.email && (
+                                        <p className="text-red-500 text-sm mt-1">
+                                            Email is required and must be valid.
+                                        </p>
+                                    )}
+                                </div>
+
+                                {/* Action Buttons */}
+                                <div className="flex justify-end">
+                                    <button
+                                        type="button"
+                                        className="px-4 py-2 bg-base-300 rounded-lg mr-2 cursor-pointer"
+                                        onClick={() => setIsEditing(false)}
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        type="submit"
+                                        className="px-4 py-2 bg-primary text-white rounded-lg cursor-pointer"
+                                    >
+                                        Save
+                                    </button>
+                                </div>
+                            </form>
                         </motion.div>
                     </motion.div>
                 )}
