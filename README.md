@@ -1,12 +1,33 @@
-# React + Vite
+# Dashboard Task
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React-based dashboard application that includes user authentication, a sidebar for navigation, and various features like managing products, users, orders, and analytics. The project uses mock API data for user authentication and state management.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- **Authentication**: Login functionality with mock API integration.
+- **Sidebar Navigation**: Dynamic sidebar with user profile and navigation links.
+- **Dashboard Overview**: Displays statistics and charts for sales, users, and products.
+- **Products Page**: Show Products and update and delete product using mock api.
+- **User Page**: Show Users and update and delete users info using mock api ,and role in real world projects .
+- **Responsive Design**: Fully responsive layout for desktop and mobile devices.
+- **Products Page**: Login functionality with mock API integration.
+---
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Tech Stack
+
+- **Frontend**: React, React Router, Framer Motion
+- **Icons**: Lucide React
+- **State Management**: React Hooks
+- **Notifications**: React Hot Toast
+- **Mock API**: MockAPI for user and data management
+
+## UI/UX
+![Login](<Screenshot 2025-04-07 162732.png>)
+
+![Dashboard Overview](<Screenshot 2025-04-07 162749.png>)
+
+![Users Page](<Screenshot 2025-04-07 163054.png>)
+
+![Products Page](<Screenshot 2025-04-07 162827.png>)
