@@ -7,6 +7,7 @@ A React-based dashboard application that includes user authentication, a sidebar
 > I need to mention that iam new with state managment like Redux Toolkit and zustand
 > Start learning week ago and start with zustand
 
+
 ## Features
 
 - **Authentication**: Login functionality with mock API integration.
@@ -25,6 +26,10 @@ A React-based dashboard application that includes user authentication, a sidebar
 - **State Management**: React Hooks
 - **Notifications**: React Hot Toast
 - **Mock API**: MockAPI for user and data management
+  
+[This is link to Mock API / Users](https://67f0c8032a80b06b88989e4b.mockapi.io/dashboard/users)
+
+[This is link to Mock API / Products](https://67f0c8032a80b06b88989e4b.mockapi.io/dashboard/products)
 
 ## UI/UX
 ![Login](<Screenshot 2025-04-07 162732.png>)
