@@ -3,20 +3,25 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router";
 import { fadeIn } from "../variants";
-import { Loader } from "lucide-react";
+import { Loader, Eye , EyeOff } from "lucide-react";
 import { toast } from "react-hot-toast";
 
 const LoginPage = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
-    const nevigate = useNavigate();
+    const navigate = useNavigate();
+
+
+    const SESSION_DURATION = 30 * 60 * 1000;
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError("");
         setLoading(true);
+
 
         try {
             // Fetch users from the mock API
@@ -29,11 +34,20 @@ const LoginPage = () => {
                 (u) => u.email === email && u.password === password
             );
             if (user) {
-                console.log("Login successful:", user);
-                toast.success("Login Successful redirecting to dashboard...");
-                // Redirect or perform further actions here
+                // Save user data to localStorage
+                localStorage.setItem("user", JSON.stringify(user));
+
+                // Set a timeout to remove the user after the session duration
                 setTimeout(() => {
-                    nevigate('/dashboard',{ state: { user }});
+                    localStorage.removeItem("user");
+                    toast.error("Session expired. Please log in again.");
+                    navigate("/login");
+                }, SESSION_DURATION);
+
+                toast.success("Login Successful! Redirecting to dashboard...");
+                // Redirect to the home page
+                setTimeout(() => {
+                    navigate("/");
                 }, 1000);
             } else {
                 setError("Invalid email or password.");
@@ -82,7 +96,7 @@ const LoginPage = () => {
                             <div className="validator-hint">Enter valid email address</div>
                             <label className="fieldset-label">Password</label>
                             <input
-                                type="password"
+                                type={showPassword ? "password" : "text"}
                                 className="input validator"
                                 required
                                 placeholder="Password"
@@ -92,24 +106,19 @@ const LoginPage = () => {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                             />
-                            {!password ? (
-                                <p className="validator-hint">Enter your password</p>
-                            ) : (
-                                <p className="validator-hint">
-                                    Password must be at least 8 characters long, including:
-                                    <br />
-                                    - At least one number
-                                    <br />
-                                    - At least one lowercase letter
-                                    <br />
-                                    - At least one uppercase letter
-                                </p>
-                            )}
+                                <button
+                                    type="button"
+                                    className=" absolute right-15 bottom-39 text-gray-500 hover:text-gray-700 max-sm:right-10"
+                                    onClick={() => setShowPassword(!showPassword)} // Toggle visibility
+                                >
+                                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                                </button>
+                            <p className="validator-hint">Enter your password</p>
                     {error && <div role="alert" className="alert alert-error alert-soft flex justify-center items-center">
                         <span>{error}</span>
                     </div>}
-                            <p className="font-semibold">Don't have account ?
-                                <Link to="/register" className="link link-info">
+                            <p className="font-semibold">Don't have account ? 
+                                 <Link to="/register" className="link link-info">
                                 Register
                             </Link></p>
                             <button
