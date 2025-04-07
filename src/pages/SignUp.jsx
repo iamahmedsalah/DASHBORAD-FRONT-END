@@ -75,7 +75,7 @@ const SignUp = () => {
                                 type="text"
                                 placeholder="Name"
                                 className="w-full input-bordered input validator"
-                                pattern="[A-Za-z][A-Za-z0-9\-]*" minLength="3" maxLength="30" title="Only letters, numbers or dash"
+                                pattern="[A-Za-z][A-Za-z0-9\s]*" minLength="3" maxLength="30" title="Only letters, numbers "
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                                 required
@@ -92,6 +92,8 @@ const SignUp = () => {
                             <input
                                 type="email"
                                 placeholder="mail@site.com"
+                                pattern="^[^@]+@[^@]+\.[^@]+$"
+                                maxLength="50"
                                 className="w-full input-bordered input validator"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
@@ -113,6 +115,7 @@ const SignUp = () => {
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
                                 minLength="8"
+                                maxLength="20"
                                 pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*)[A-Za-z\d]{8,}$"
                                 title="Password must be at least 8 characters long, include at least one number, one lowercase letter, one uppercase letter, and one special character."
                             />
@@ -137,8 +140,11 @@ const SignUp = () => {
                                 value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)}
                                 required
+                                pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*)[A-Za-z\d]{8,}$"
+                                minLength="8"
+                                maxLength="20"
                             />
-                            <p  onChange={(e) => setConfirmPassword(e.target.value)} className="validator-hint">Enter your password again </p>
+                            <p onChange={(e) => setConfirmPassword(e.target.value)} className="validator-hint">Enter your password again </p>
                         </div>
                         {error && <div role="alert" className="alert alert-error alert-soft flex justify-center items-center">
                             <span>{error}</span>
@@ -167,7 +173,7 @@ const SignUp = () => {
                     <h1 className="text-5xl font-bold">Dashborad</h1>
                     <h2>Register</h2>
                     <p className="py-6">
-                    We have received your signup information.<br/> A support admin will be in touch to finalize your account setup.
+                        We have received your signup information.<br /> A support admin will be in touch to finalize your account setup.
                     </p>
                 </motion.div>
 

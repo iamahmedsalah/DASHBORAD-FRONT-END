@@ -32,7 +32,7 @@ const ProductsTable = ({ products, setProducts }) => {
     // Handle delete product
     const handleDelete = (productId) => {
         const updatedProducts = products.filter((product) => product.id !== productId);
-		toast.success("Product deleted successfully");
+        toast.success("Product deleted successfully");
         setProducts(updatedProducts);
         setFilteredProducts(updatedProducts); // Update filtered products
     };
@@ -41,17 +41,19 @@ const ProductsTable = ({ products, setProducts }) => {
     const handleEdit = (product) => {
         setEditingProduct(product); // Set the product to be edited
         setIsEditing(true); // Open the edit modal
+        
     };
 
     // Handle save product
     const handleSave = () => {
+
         const updatedProducts = products.map((product) =>
             product.id === editingProduct.id ? editingProduct : product
         );
         setProducts(updatedProducts);
         setFilteredProducts(updatedProducts); // Update filtered products
         setIsEditing(false); // Close the edit modal
-		toast.success("Product updated successfully");
+        toast.success("Product updated successfully");
     };
 
     return (
@@ -152,11 +154,10 @@ const ProductsTable = ({ products, setProducts }) => {
                     <button
                         key={index + 1}
                         onClick={() => setCurrentPage(index + 1)}
-                        className={`px-4 py-2 mx-1 rounded-full cursor-pointer ${
-                            currentPage === index + 1
-                                ? 'bg-primary text-white'
-                                : 'bg-base-300 text-gray-500'
-                        }`}
+                        className={`px-4 py-2 mx-1 rounded-full cursor-pointer ${currentPage === index + 1
+                            ? 'bg-primary text-white'
+                            : 'bg-base-300 text-gray-500'
+                            }`}
                     >
                         {index + 1}
                     </button>
@@ -185,23 +186,33 @@ const ProductsTable = ({ products, setProducts }) => {
                                 <label className='block text-sm font-medium mb-1'>Name</label>
                                 <input
                                     type='text'
-                                    className='w-full border rounded-lg px-3 py-2'
+                                    className='w-full border rounded-lg px-3 py-2 input validator'
                                     value={editingProduct.name}
+                                    pattern="[A-Za-z][A-Za-z0-9\s]*" minLength="3" maxLength="30" title="Only letters,numbers,space "
                                     onChange={(e) =>
                                         setEditingProduct({ ...editingProduct, name: e.target.value })
                                     }
                                 />
+                                <p className="validator-hint">
+                                    Must be 3 to 30 characters
+                                    containing only letters,numbers
+                                </p>
                             </div>
                             <div className='mb-4'>
                                 <label className='block text-sm font-medium mb-1'>Category</label>
                                 <input
                                     type='text'
-                                    className='w-full border rounded-lg px-3 py-2'
+                                    className='w-full border rounded-lg px-3 py-2 input validator'
                                     value={editingProduct.category}
+                                    pattern="[A-Za-z][A-Za-z0-9\s]*" minLength="3" maxLength="30" title="Only letters,numbers,space "
                                     onChange={(e) =>
                                         setEditingProduct({ ...editingProduct, category: e.target.value })
                                     }
                                 />
+                                <p className="validator-hint">
+                                    Must be 3 to 30 characters
+                                    containing only letters,numbers
+                                </p>
                             </div>
                             <div className='mb-4'>
                                 <label className='block text-sm font-medium mb-1'>Price</label>
@@ -209,6 +220,9 @@ const ProductsTable = ({ products, setProducts }) => {
                                     type='number'
                                     className='w-full border rounded-lg px-3 py-2'
                                     value={editingProduct.price}
+                                    pattern="[\S\s]+[\S]+"
+                                    title="Only numbers"
+                                    maxLength="100000"
                                     onChange={(e) =>
                                         setEditingProduct({ ...editingProduct, price: e.target.value })
                                     }

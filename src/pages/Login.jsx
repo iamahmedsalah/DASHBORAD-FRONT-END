@@ -90,6 +90,9 @@ const LoginPage = () => {
                                 type="email"
                                 required
                                 placeholder="mail@site.com"
+                                pattern="^[^@]+@[^@]+\.[^@]+$"
+                                maxLength="50"
+                                title="Please enter a valid email address"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                             />
@@ -101,6 +104,7 @@ const LoginPage = () => {
                                 required
                                 placeholder="Password"
                                 minLength="8"
+                                maxLength="20"
                                 pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*)[A-Za-z\d]{8,}$"
                                 title="Password must be at least 8 characters long, include at least one number, one lowercase letter, one uppercase letter, and one special character."
                                 value={password}

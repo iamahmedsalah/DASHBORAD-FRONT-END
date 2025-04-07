@@ -37,11 +37,11 @@ const UsersTable = ({ users, setUsers }) => {
                 method: "DELETE",
             });
             setUsers((prevUsers) => prevUsers.filter((user) => user.id !== userId));
-			toast.success("User deleted successfully")
+            toast.success("User deleted successfully")
             setFilteredUsers((prevUsers) => prevUsers.filter((user) => user.id !== userId)); // Update filtered users
         } catch (error) {
             console.error("Failed to delete user:", error);
-			toast.error("Failed to delete user");
+            toast.error("Failed to delete user");
         }
     };
 
@@ -67,11 +67,11 @@ const UsersTable = ({ users, setUsers }) => {
             setFilteredUsers((prevUsers) =>
                 prevUsers.map((user) => (user.id === editingUser.id ? editingUser : user))
             ); // Update filtered users
-			toast.success("User updated successfully");
+            toast.success("User updated successfully");
             setIsEditing(false); // Close the edit modal
         } catch (error) {
             console.error("Failed to update user:", error);
-			toast.error("Failed to update user");
+            toast.error("Failed to update user");
         }
     };
 
@@ -119,64 +119,63 @@ const UsersTable = ({ users, setUsers }) => {
                     </thead>
 
                     <tbody className="divide-y divide-gray-700">
-                            {currentUsers.map((user) => (
-                                <motion.tr
-                                    key={user.id}
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    transition={{ duration: 0.3 }}
-                                    exit={{ opacity: 0 }}
-                                >
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="flex items-center">
-                                            <div className="flex-shrink-0 h-10 w-10">
-                                                <div className="h-10 w-10 rounded-full bg-gradient-to-r from-purple-400 to-blue-500 flex items-center justify-center text-white font-semibold">
-                                                    {user.name.charAt(0)}
-                                                </div>
-                                            </div>
-                                            <div className="ml-4">
-                                                <div className="text-sm font-medium">{user.name}</div>
+                        {currentUsers.map((user) => (
+                            <motion.tr
+                                key={user.id}
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ duration: 0.3 }}
+                                exit={{ opacity: 0 }}
+                            >
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    <div className="flex items-center">
+                                        <div className="flex-shrink-0 h-10 w-10">
+                                            <div className="h-10 w-10 rounded-full bg-gradient-to-r from-purple-400 to-blue-500 flex items-center justify-center text-white font-semibold">
+                                                {user.name.charAt(0)}
                                             </div>
                                         </div>
-                                    </td>
+                                        <div className="ml-4">
+                                            <div className="text-sm font-medium">{user.name}</div>
+                                        </div>
+                                    </div>
+                                </td>
 
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm">{user.email}</div>
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-800 text-blue-100">
-                                            {user.role}
-                                        </span>
-                                    </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    <div className="text-sm">{user.email}</div>
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-800 text-blue-100">
+                                        {user.role}
+                                    </span>
+                                </td>
 
-                                    <td className="px-6 py-4 whitespace-nowrap">
-                                        <span
-                                            className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                                                user.status === "Active"
-                                                    ? "bg-green-800 text-green-100"
-                                                    : "bg-red-800 text-red-100"
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    <span
+                                        className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${user.status === "Active"
+                                            ? "bg-green-800 text-green-100"
+                                            : "bg-red-800 text-red-100"
                                             }`}
-                                        >
-                                            {user.status}
-                                        </span>
-                                    </td>
+                                    >
+                                        {user.status}
+                                    </span>
+                                </td>
 
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
-                                        <button
-                                            className="text-indigo-400 hover:text-indigo-300 mr-2 cursor-pointer"
-                                            onClick={() => handleEdit(user)}
-                                        >
-                                            Edit
-                                        </button>
-                                        <button
-                                            className="text-red-400 hover:text-red-300 cursor-pointer"
-                                            onClick={() => handleDelete(user.id)}
-                                        >
-                                            Delete
-                                        </button>
-                                    </td>
-                                </motion.tr>
-                            ))}
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                                    <button
+                                        className="text-indigo-400 hover:text-indigo-300 mr-2 cursor-pointer"
+                                        onClick={() => handleEdit(user)}
+                                    >
+                                        Edit
+                                    </button>
+                                    <button
+                                        className="text-red-400 hover:text-red-300 cursor-pointer"
+                                        onClick={() => handleDelete(user.id)}
+                                    >
+                                        Delete
+                                    </button>
+                                </td>
+                            </motion.tr>
+                        ))}
                     </tbody>
                 </table>
             </div>
@@ -187,18 +186,17 @@ const UsersTable = ({ users, setUsers }) => {
                     <button
                         key={index + 1}
                         onClick={() => setCurrentPage(index + 1)}
-                        className={`px-4 py-2 mx-1 rounded-full cursor-pointer ${
-                            currentPage === index + 1
-                                ? "bg-primary text-white"
-                                : "bg-base-300 text-gray-500"
-                        }`}
+                        className={`px-4 py-2 mx-1 rounded-full cursor-pointer ${currentPage === index + 1
+                            ? "bg-primary text-white"
+                            : "bg-base-300 text-gray-500"
+                            }`}
                     >
                         {index + 1}
                     </button>
                 ))}
             </div>
-			
-			{/* Edit User Modal */}
+
+            {/* Edit User Modal */}
             <AnimatePresence>
                 {isEditing && (
                     <motion.div
@@ -220,23 +218,32 @@ const UsersTable = ({ users, setUsers }) => {
                                 <label className="block text-sm font-medium mb-1">Name</label>
                                 <input
                                     type="text"
-                                    className="w-full border rounded-lg px-3 py-2"
+                                    className="w-full border rounded-lg px-3 py-2 input validator"
                                     value={editingUser.name}
+                                    pattern="[A-Za-z][A-Za-z0-9\s]*" minLength="3" maxLength="30" title="Only letters,numbers,space "
                                     onChange={(e) =>
                                         setEditingUser({ ...editingUser, name: e.target.value })
                                     }
                                 />
+                                <p className="validator-hint">
+                                    Must be 3 to 30 characters
+                                    containing only letters,numbers
+                                </p>
                             </div>
                             <div className="mb-4">
                                 <label className="block text-sm font-medium mb-1">Email</label>
                                 <input
                                     type="email"
-                                    className="w-full border rounded-lg px-3 py-2"
+                                    className="w-full border rounded-lg px-3 py-2 input validator"
                                     value={editingUser.email}
+                                    pattern="^[^@]+@[^@]+\.[^@]+$"
+                                    maxLength="50"
+                                    title="Please enter a valid email address"
                                     onChange={(e) =>
                                         setEditingUser({ ...editingUser, email: e.target.value })
                                     }
                                 />
+                                <p className="validator-hint">Enter valid email address</p>
                             </div>
                             <div className="flex justify-end">
                                 <button
