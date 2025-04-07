@@ -3,6 +3,9 @@
 A React-based dashboard application that includes user authentication, a sidebar for navigation, and various features like managing products, users, orders, and analytics. The project uses mock API data for user authentication and state management.
 
 ---
+> **Note**
+> I need to mention that iam new with state managment like Redux Toolkit and zustand
+> Start learning week ago and start with zustand
 
 ## Features
 
