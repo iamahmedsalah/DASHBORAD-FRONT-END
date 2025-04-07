@@ -9,7 +9,7 @@ import Users from './pages/Users.jsx';
 import Products from './pages/Products.jsx';
 import Order from './pages/Order.jsx';
 import Analytics from './pages/Analytics.jsx';
-import Settings from './pages/settings.jsx';
+import Settings from './pages/Settings.jsx';
 
 // Conmpontes
 import Preloader from './components/Preloader.jsx';
