@@ -155,7 +155,7 @@ const ProductsTable = ({ products, setProducts }) => {
                         className={`px-4 py-2 mx-1 rounded-full cursor-pointer ${
                             currentPage === index + 1
                                 ? 'bg-primary text-white'
-                                : 'bg-base-300 text-gray-700'
+                                : 'bg-base-300 text-gray-500'
                         }`}
                     >
                         {index + 1}
@@ -174,7 +174,7 @@ const ProductsTable = ({ products, setProducts }) => {
                         transition={{ duration: 0.3 }}
                     >
                         <motion.div
-                            className='bg-white rounded-lg p-6 w-96 shadow-2xl'
+                            className='bg-base-100 rounded-lg p-6 w-96 shadow-2xl'
                             initial={{ scale: 0.8 }}
                             animate={{ scale: 1 }}
                             exit={{ scale: 0.8 }}
@@ -216,7 +216,7 @@ const ProductsTable = ({ products, setProducts }) => {
                             </div>
                             <div className='flex justify-end'>
                                 <button
-                                    className='px-4 py-2 bg-gray-300 rounded-lg mr-2 cursor-pointer'
+                                    className='px-4 py-2 bg-base-300 rounded-lg mr-2 cursor-pointer'
                                     onClick={() => setIsEditing(false)}
                                 >
                                     Cancel
